@@ -1,0 +1,10 @@
+package ch.zli.m223.api20a.crm.exception;
+
+import java.util.function.Supplier;
+
+public class UserNotFoundException extends RuntimeException {
+
+	
+	}
+
+}

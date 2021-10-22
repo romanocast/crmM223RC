@@ -1,0 +1,27 @@
+package ch.zli.m223.api20a.crm.init;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.stereotype.Component;
+
+import ch.zli.m223.api20a.crm.model.impl.AppUserImpl;
+import ch.zli.m223.api20a.crm.repository.UserRepository;
+
+@Component
+public class serverInitialiser implements ApplicationRunner{
+
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Override
+	public void run(ApplicationArguments args) throws Exception {
+		userRepository.save(new AppUserImpl("sankeTheRiddelFiddel@budugama.jupi", "hans-jörg"));
+		userRepository.save(new AppUserImpl("sone45@param.wix", "peter-hotz"));
+		userRepository.save(new AppUserImpl("wahnsinnigerWilli@superpower.onan", "angeline"));
+		userRepository.save(new AppUserImpl("zod@habadaba.orgie", "theMachine"));
+		
+	}
+
+	
+}

@@ -1,0 +1,47 @@
+package ch.zli.m223.api20a.crm.model.impl;
+
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+import ch.zli.m223.api20a.crm.model.AppUser;
+
+@Entity(name="AppUser")
+public class AppUserImpl implements AppUser{
+
+	
+	@Id // = primary Key
+	@GeneratedValue // auto increment value
+	private Long id;
+	
+	@Column(unique=true, nullable=false)
+	private String email;
+	
+	private List<RoleImpl> roles;
+
+	public AppUserImpl(String email, String password) {
+		this.email = email;
+	}
+
+	protected AppUserImpl() {
+		//for jpa only
+	}
+	
+	@Override
+	public Long getId() {
+		return id;
+	}
+
+	@Override
+	public String getEmail() {
+		return email;
+	}
+
+	public void addRole(RoleImpl role) {
+		roles.add(role);
+	}
+
+}

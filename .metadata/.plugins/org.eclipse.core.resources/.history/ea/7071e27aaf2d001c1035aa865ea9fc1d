@@ -1,0 +1,23 @@
+package ch.zli.m223.api20a.crm.model.impl;
+
+import javax.persistence.Entity;
+
+import ch.zli.m223.api20a.crm.model.Role;
+
+@Entity(name = "Role")
+public class RoleImpl implements Role {
+	
+	private Long id;
+	private String role;
+
+	@Override
+	public Long getId() {
+		return id;
+	}
+
+	@Override
+	public String getRole() {
+		return role;
+	}
+
+}

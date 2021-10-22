@@ -1,0 +1,5 @@
+package ch.zli.m223.api20a.crm.model.impl;
+
+public class RoleImpl {
+
+}

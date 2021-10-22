@@ -1,0 +1,15 @@
+package ch.zli.m223.api20a.crm.service;
+
+import java.util.List;
+
+import ch.zli.m223.api20a.crm.model.AppUser;
+
+public interface UserService {
+
+	List<AppUser> getAllUsers();
+
+	AppUser getUserById(long id);
+
+	AppUser deleteUserById(long id);
+
+}

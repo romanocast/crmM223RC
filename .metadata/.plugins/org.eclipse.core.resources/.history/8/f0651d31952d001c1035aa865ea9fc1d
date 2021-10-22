@@ -1,0 +1,38 @@
+package ch.zli.m223.api20a.crm.service.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import ch.zli.m223.api20a.crm.exception.UserNotFoundException;
+import ch.zli.m223.api20a.crm.model.AppUser;
+import ch.zli.m223.api20a.crm.repository.UserRepository;
+import ch.zli.m223.api20a.crm.service.UserService;
+
+@Service
+public class UserServiceImpl implements UserService{
+
+	@Autowired
+	UserRepository userRepository;
+	
+	@Override
+	public List<AppUser> getAllUsers() {
+		return new ArrayList<AppUser>(userRepository.findAll());
+	}
+
+	@Override
+	public AppUser getUserById(long id) {
+		return userRepository.findById(id)
+				.orElseThrow(UserNotFoundException::new);
+	}
+
+	@Override
+	public AppUser deleteUserById(long id) {
+		return userRepository.findById(id)
+				.orElseThrow(UserNotFoundException::new);
+	}
+
+	
+}

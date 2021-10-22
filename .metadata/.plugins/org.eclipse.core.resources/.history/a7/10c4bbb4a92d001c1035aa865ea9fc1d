@@ -1,0 +1,58 @@
+package ch.zli.m223.api20a.crm.service.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import ch.zli.m223.api20a.crm.exception.InvalidParamException;
+import ch.zli.m223.api20a.crm.exception.UserAlreadyExistsException;
+import ch.zli.m223.api20a.crm.exception.UserNotFoundException;
+import ch.zli.m223.api20a.crm.model.AppUser;
+import ch.zli.m223.api20a.crm.repository.UserRepository;
+import ch.zli.m223.api20a.crm.service.UserService;
+
+@Service
+public class UserServiceImpl implements UserService{
+
+	@Autowired
+	UserRepository userRepository;
+	
+	@Override
+	public List<AppUser> getAllUsers() {
+		return new ArrayList<AppUser>(userRepository.findAll());
+	}
+
+	@Override
+	public AppUser getUserById(long id) {
+		return userRepository.findById(id)
+				.orElseThrow(UserNotFoundException::new);
+	}
+
+	@Override
+	public void deleteById(long id) {
+		 getUserById(id);
+		 userRepository.deleteById(id);
+	}
+
+	@Override
+	public AppUser addUser(String email, String password) {
+		
+		if(email == null || password== null) {
+			throw new InvalidParamException();
+		} 
+		
+		if(userRepository.findByEmail(email).isPresent()) {
+			throw new UserAlreadyExistsException();
+		}
+		//Insert (
+		userRepository.add(email, password);
+		
+		
+		//insert email passwort into db
+		//return new appUser
+		return null;
+	}
+
+}
