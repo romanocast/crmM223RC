@@ -1,9 +1,0 @@
-package ch.zli.m223.api20a.crm.model;
-
-public interface AppUser {
-	
-	public Long getId();
-	public String getEmail();
-	public Object getRoles();
-
-}

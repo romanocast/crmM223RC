@@ -11,12 +11,11 @@ public class UserDto {
 	
 	public Long id;
 	public String email;
-	public List<String> roles;
+	public List<String> roles = new ArrayList<>();;
 	
 	//Konstruktor
 	
 	public UserDto(AppUser appUser) {
-		roles = new ArrayList<>();
 		this.id= appUser.getId();
 		this.email= appUser.getEmail();
 		roles.addAll(appUser.getRoles());

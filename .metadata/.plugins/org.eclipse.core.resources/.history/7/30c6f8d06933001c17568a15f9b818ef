@@ -1,0 +1,5 @@
+package ch.zli.m223.api20a.crm.service.impl;
+
+public class CustomerServiceImpl {
+
+}
