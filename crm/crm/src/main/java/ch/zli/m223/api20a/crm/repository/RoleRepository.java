@@ -19,5 +19,4 @@ public interface RoleRepository extends JpaRepository<RoleImpl, Long> {
 		}
 		return user;
 	}
-	
 }

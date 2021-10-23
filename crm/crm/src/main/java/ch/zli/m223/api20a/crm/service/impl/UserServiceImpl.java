@@ -19,22 +19,26 @@ public class UserServiceImpl implements UserService{
 
 	@Autowired
 	UserRepository userRepository;
+	
 	@Autowired
 	RoleRepository roleRepository;
 	
 	@Override
 	public List<AppUser> getAllUsers() {
+		
 		return new ArrayList<AppUser>(userRepository.findAll());
 	}
 
 	@Override
 	public AppUser getUserById(long id) {
+		
 		return userRepository.findById(id)
 				.orElseThrow(UserNotFoundException::new);
 	}
 
 	@Override
 	public void deleteById(long id) {
+		
 		 getUserById(id);
 		 userRepository.deleteById(id);
 	}
@@ -66,5 +70,4 @@ public class UserServiceImpl implements UserService{
 		//Add the role list to the User and save it to the db
 		return roleRepository.setRoles(user, roles);
 	}
-
 }

@@ -4,13 +4,9 @@ import java.util.List;
 
 public interface Customer {
 
-	Long getId();
-
-	String getName();
-	
-	String getStreet();
-	
-	String getCity();
-
+	public Long getId();
+	public String getName();
+	public String getStreet();
+	public String getCity();
 	List<Memo> getMemos();
 }

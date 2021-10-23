@@ -28,6 +28,7 @@ public class MemoImpl implements Memo{
 	private Date coverageDate;
 	
 	public MemoImpl(String memo, CustomerImpl customer) {
+		
 		this.customer = customer;
 		this.memo = memo;
 		this.coverageDate = Calendar.getInstance().getTime();
@@ -35,7 +36,7 @@ public class MemoImpl implements Memo{
 	}
 	
 	protected MemoImpl() {
-		
+		//for JPA only
 	}
 	
 	@Override

@@ -26,27 +26,32 @@ public class CustomerServiceImpl implements CustomerService{
 	
 	@Override
 	public List<Customer> getAllCustomers() {
+		
 		return new ArrayList<>(customerRepository.findAll());
 	}
 
 	@Override
 	public Customer getCustomerById(long id) {
+		
 		return customerRepository.findById(id).orElseThrow(CustomerNotFoundException::new);
 	}
 
 	@Override
 	public void deleteById(long id) {
+		
 		getCustomerById(id);//Parameter check
 		customerRepository.deleteById(id);
 	}
 
 	@Override
 	public Optional<CustomerImpl> getCustomerByName(String name) {
+		
 		return customerRepository.findCustomerByName(name);
 	}
 
 	@Override
 	public Customer addCustomer(String name, String street, String city) {
+		
 		if (name == null || street == null || city == null) {
 			throw new InvalidParamException();
 		}
@@ -55,13 +60,11 @@ public class CustomerServiceImpl implements CustomerService{
 
 	@Override
 	public Customer setMemosForCustomer(long id, String memos) {
+		
 		Customer customer = getCustomerById(id); //Parameter check
 		if (memos == null) {
 			throw new InvalidParamException();
 		}
-		
 		return memoRepository.setMemos(customer, memos);
 	}
-
-
 }

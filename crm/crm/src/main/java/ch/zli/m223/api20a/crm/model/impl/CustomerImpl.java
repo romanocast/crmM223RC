@@ -34,6 +34,7 @@ public class CustomerImpl  implements Customer {
 	private List<MemoImpl> memos;
 	
 	public CustomerImpl(String name, String street, String city) {
+		
 		this.name = name;
 		this.street = street;
 		this.city = city;
@@ -41,41 +42,41 @@ public class CustomerImpl  implements Customer {
 	}
 	
 	protected CustomerImpl() {
-		
-	}//For JPA only
-
+		//For JPA only
+	}
+	
 	@Override
 	public Long getId() {
-		// TODO Auto-generated method stub
+
 		return id;
 	}
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
+
 		return name;
 	}
 
 	@Override
 	public List<Memo> getMemos() {
+		
 		return new ArrayList<>(memos);
 	}
 
 	@Override
 	public String getStreet() {
-		// TODO Auto-generated method stub
+
 		return street;
 	}
 
 	@Override
 	public String getCity() {
-		// TODO Auto-generated method stub
+
 		return city;
 	}
 	
 	public void addMemo(MemoImpl memo) {
+		
 		memos.add(memo);
 	}
-
-
 }

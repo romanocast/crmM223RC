@@ -7,5 +7,4 @@ public interface AppUser {
 	public Long getId();
 	public String getEmail();
 	public List<String> getRoles();
-
 }

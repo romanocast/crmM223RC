@@ -32,7 +32,9 @@ public class serverInitialiser implements ApplicationRunner{
 	@Autowired
 	private MemoRepository memoRepository;
 	
-	int createThisManyUsers = 200;
+	int createThisManyUsers = 50;
+	
+	int createThisManyCustomers = 50;
 	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
@@ -47,16 +49,21 @@ public class serverInitialiser implements ApplicationRunner{
 			createAppUser(emailGenerator(rnd.nextInt(10), rnd.nextInt(8), rnd.nextInt(5)), passwordGenerator(rnd.nextInt(12)), roleGenerator());
 		}
 		
-		createCustomer("Löffel-George", "HolzTanneWeg 2", "8743 Hinterfotzen", "fotzekönig");
+		for(int i = 0; i < createThisManyCustomers; i++) {
+			createCustomer(nameGenerator(), streetGenerator(), cityGenerator(), memoGenerator());
+		}
+		
 		
 	}
 	
 	public void createCustomer(String name, String street, String city, String memo) {
+		
 		CustomerImpl customer = customerRepository.save(new CustomerImpl(name, street, city));
 		memoRepository.setMemos(customer, memo);
 	}
 
 	public void createAppUser(String email, String password, String role) {
+		
 		List<String> newRole = new ArrayList<>();
 		newRole.add(role);
 		AppUserImpl newUser = userRepository.save(new AppUserImpl(email, password));
@@ -64,28 +71,145 @@ public class serverInitialiser implements ApplicationRunner{
 		newRole.clear();
 	}
 	
-	public String roleGenerator() {
+	public String memoGenerator() {
+		
+		Random random = new Random();
+		List<String> memoList = new ArrayList<>();
+		memoList.add("he is a dick");
+		memoList.add("pays well");
+		memoList.add("is a good customer");
+		memoList.add("allways complanins about the service");
+		memoList.add("doesn't talk a lot");
+		memoList.add("wierdo");
+		memoList.add("nothing to report");
+		memoList.add("this is a memo example");
+		memoList.add("nemo is the memo");
+		memoList.add("upgrade the version");
+		memoList.add("1.2 is outdated");
+		memoList.add("bananaphone");
+		memoList.add("she has great ...");
+		memoList.add("i think there was something in my drink");
+
+		return memoList.get(random.nextInt(memoList.size()));
+	}
+	
+	public String cityGenerator() {
+		
+		Random rnd = new Random();
+		List<String> cityList = new ArrayList<>();
+		cityList.add(rnd.nextInt(9999)+ " " + "Mühlhausen");
+		cityList.add(rnd.nextInt(9999) + " " + "Entenhausen");
+		cityList.add(rnd.nextInt(9999) + " " + "Gotham-City");
+		cityList.add(rnd.nextInt(9999) + " " + "Maintown");
+		cityList.add(rnd.nextInt(9999) + " " + "Dreckshack");
+		cityList.add(rnd.nextInt(9999) + " " + "Megatown");
+		cityList.add(rnd.nextInt(9999) + " " + "Hinterrieden");
+		cityList.add(rnd.nextInt(9999) + " " + "Oftren");
+		cityList.add(rnd.nextInt(9999) + " " + "Güdingen");
+		cityList.add(rnd.nextInt(9999) + " " + "Rindlishausen");
+		cityList.add(rnd.nextInt(9999) + " " + "Büdishausen");
+		cityList.add(rnd.nextInt(9999) + " " + "Reiden");
+		cityList.add(rnd.nextInt(9999) + " " + "Rüeblisalat");
+		cityList.add(rnd.nextInt(9999) + " " + "Georgstetten");
+
+		return cityList.get(rnd.nextInt(cityList.size()));
+	}
+	
+	public String streetGenerator() {
+		
+		Random random = new Random();
+		List<String> streetList = new ArrayList<>();
+		streetList.add("Tannenweg" + " " + random.nextInt(30));
+		streetList.add("Hinter der Heide" + " " + random.nextInt(30));
+		streetList.add("Gürtelbackerweg" + " " + random.nextInt(30));
+		streetList.add("Am Arsch der Heide" + " " + random.nextInt(30));
+		streetList.add("Baumholzerweg" + " " + random.nextInt(30));
+		streetList.add("Hauptstrasse" + " " + random.nextInt(30));
+		streetList.add("Obergrundhöhe" + " " + random.nextInt(30));
+		streetList.add("MixindaGarden" + " " + random.nextInt(30));
+		streetList.add("Seitenbacherweg" + " " + random.nextInt(30));
+		streetList.add("Dorfstrasse" + " " + random.nextInt(30));
+		streetList.add("Landstrasse" + " " + random.nextInt(30));
+		streetList.add("Autobahnstrasse" + " " + random.nextInt(30));
+		streetList.add("Landweg" + " " + random.nextInt(30));
+		streetList.add("Güdisbacherstrasse" + " " + random.nextInt(30));
+
+		return streetList.get(random.nextInt(streetList.size()));
+	}
+	
+	public String nameGenerator() {
+		
+		return firstNameGenerator() + "-" + lastNameGenerator();
+	}
+	
+	public String lastNameGenerator() {
+		
 		Random random = new Random();
 		List<String> lastNameList = new ArrayList<>();
-		lastNameList.add("Partner");
-		lastNameList.add("Director");
-		lastNameList.add("Helpdesk Manager");
-		lastNameList.add("Compliance Admin");
-		lastNameList.add("Security Support");
-		lastNameList.add("Generated Role");
-		lastNameList.add("Cloud Data deleter");
-		lastNameList.add("Billing Guy");
-		lastNameList.add("Maintenance");
-		lastNameList.add("Specialised Role");
-		lastNameList.add("Top Secret Role");
-		lastNameList.add("Semi Chef");
-		lastNameList.add("Chef");
-		lastNameList.add("Worker");
+		lastNameList.add("Müller");
+		lastNameList.add("Meier");
+		lastNameList.add("Bäcker");
+		lastNameList.add("Torfstecher");
+		lastNameList.add("Bieraustrinker");
+		lastNameList.add("Hugentobler");
+		lastNameList.add("Arschwanden");
+		lastNameList.add("Köppler");
+		lastNameList.add("Gönner");
+		lastNameList.add("Nicht-Gönner");
+		lastNameList.add("Von-Seite");
+		lastNameList.add("Unterhueber");
+		lastNameList.add("Hueber");
+		lastNameList.add("Meiser");
 
 		return lastNameList.get(random.nextInt(lastNameList.size()));
 	}
 	
+	public String firstNameGenerator() {
+		
+		Random random = new Random();
+		List<String> firstNameList = new ArrayList<>();
+		firstNameList.add("Hans");
+		firstNameList.add("Fritz");
+		firstNameList.add("Gerhart");
+		firstNameList.add("Joscht");
+		firstNameList.add("Kurt");
+		firstNameList.add("Max");
+		firstNameList.add("Kevin");
+		firstNameList.add("Armin");
+		firstNameList.add("Justus");
+		firstNameList.add("Geri");
+		firstNameList.add("Tobi");
+		firstNameList.add("Köbi");
+		firstNameList.add("Hugo");
+		firstNameList.add("Karl");
+
+		return firstNameList.get(random.nextInt(firstNameList.size()));
+	}
+	
+	public String roleGenerator() {
+		
+		Random random = new Random();
+		List<String> roleList = new ArrayList<>();
+		roleList.add("Partner");
+		roleList.add("Director");
+		roleList.add("Helpdesk Manager");
+		roleList.add("Compliance Admin");
+		roleList.add("Security Support");
+		roleList.add("Generated Role");
+		roleList.add("Cloud Data deleter");
+		roleList.add("Billing Guy");
+		roleList.add("Maintenance");
+		roleList.add("Specialised Role");
+		roleList.add("Top Secret Role");
+		roleList.add("Semi Chef");
+		roleList.add("Chef");
+		roleList.add("Worker");
+
+		return roleList.get(random.nextInt(roleList.size()));
+	}
+	
 	public static String passwordGenerator(int length){
+		
 	    final String allowedChars = "0123456789abcdefghijklmnopqrstuvwABCDEFGHIJKLMNOP!§$%&?*+#";
 	    SecureRandom random = new SecureRandom();
 	    StringBuilder pass = new StringBuilder(length);
@@ -97,9 +221,7 @@ public class serverInitialiser implements ApplicationRunner{
 	
 	public String emailGenerator(int preAtLetters, int afterAtLetters, int afterDotLetters) {
 		
-		String email = stringGenerator(preAtLetters) + "@" + stringGenerator(afterAtLetters) + "." + stringGenerator(afterDotLetters);
-		
-		return email;
+		return stringGenerator(preAtLetters) + "@" + stringGenerator(afterAtLetters) + "." + stringGenerator(afterDotLetters);
 	}
 	
 	public String stringGenerator(int length) {
@@ -132,7 +254,6 @@ public class serverInitialiser implements ApplicationRunner{
 	   
 	    return randomString;
 	  }
-	
 	/*
 	 List<String> roles = new ArrayList<>();
 		roles.add("chef"); roles.add("büetzer");
@@ -144,9 +265,5 @@ public class serverInitialiser implements ApplicationRunner{
 		roles.add("azubi"); roles.add("lehrnender");
 		AppUserImpl user2 = userRepository.save(new AppUserImpl("sagurkel@budugama.jupi", "banana-joe"));
 		roleRepository.setRoles(user2, roles);
-	  
-	  
-	  
 	  */
-	 
 }

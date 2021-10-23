@@ -27,6 +27,7 @@ public class CustomerRestController {
 	
 	@GetMapping("")
 	public List<CustomerDto> getAllCustomers() {
+		
 		List<Customer> customers = customerService.getAllCustomers();
 		return customers.stream()
 			//.skip(n) #to skip as many users we want
@@ -38,16 +39,19 @@ public class CustomerRestController {
 	
 	@GetMapping("/{id}")
 	public CustomerDto getCustomerById(@PathVariable("id") long id) {
+		
 		return new CustomerDto(customerService.getCustomerById(id));
 	}
 	
 	@PostMapping("")
 	public CustomerDto addCustomer(@RequestBody CustomerInputDto customer) {
+		
 		return new CustomerDto(customerService.addCustomer(customer.name, customer.street, customer.city));
 	}
 
 	@DeleteMapping("/{id}")
 	public void deleteUserById(@PathVariable("id") long id) {
+		
 		customerService.deleteById(id);
 	}
 	

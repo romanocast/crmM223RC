@@ -36,26 +36,27 @@ public class UserRestController {
 
 	@GetMapping("/{id}")
 	public UserDto getUserById(@PathVariable("id") long id) {
+		
 		return new UserDto(userService.getUserById(id));
 	}
 
 	@DeleteMapping("/{id}")
 	public void deleteById(@PathVariable("id") long id) {
+		
 		userService.deleteById(id);
 	}
 	
 	@PostMapping()
 	public UserDto addUser(@RequestBody UserInputDto user) {
+		
 		return new UserDto(
 				userService.addUser(user.email, user.password)
 				);
 	}
 	
 	@PostMapping("{id}/roles")
-	public UserDto setRoles(
-		@PathVariable("id") long userId, 
-		@RequestBody List<String> roles) {
+	public UserDto setRoles(@PathVariable("id") long userId, @RequestBody List<String> roles) {
+		
 			return new UserDto(userService.setRolesForUser(userId, roles));
 	}
-	
 }

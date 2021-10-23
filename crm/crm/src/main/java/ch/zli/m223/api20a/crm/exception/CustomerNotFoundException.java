@@ -5,4 +5,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @SuppressWarnings("serial")
 @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Customer not found")
-public class CustomerNotFoundException extends NoTraceException {}
+public class CustomerNotFoundException extends NoTraceException {
+	
+}

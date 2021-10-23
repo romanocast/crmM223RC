@@ -29,6 +29,7 @@ public class AppUserImpl implements AppUser{
 	private List<RoleImpl> roles;
 
 	public AppUserImpl(String email, String password) {
+		
 		roles = new ArrayList<>();
 		this.email = email;
 	}
@@ -39,22 +40,26 @@ public class AppUserImpl implements AppUser{
 	
 	@Override
 	public Long getId() {
+		
 		return id;
 	}
 
 	@Override
 	public String getEmail() {
+		
 		return email;
 	}
 	
 	@Override
 	public List<String> getRoles() {
+		
 		return roles.stream()
 				.map((RoleImpl role) -> { return role.getRole(); })
 				.collect(Collectors.toList());
 	}
 
 	public void addRole(RoleImpl role) {
+		
 		roles.add(role);
 	}
 

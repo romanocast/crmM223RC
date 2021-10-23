@@ -19,6 +19,5 @@ public class CustomerDto {
 		this.street = customer.getStreet();
 		this.city = customer.getCity();
 		memos.addAll(customer.getMemos());
-				
 	}
 }

@@ -24,7 +24,7 @@ public class RoleImpl implements Role {
 	}
 	
 	protected RoleImpl() {
-		//For Jpa only
+		//For JPA only
 	}
 
 	@Override
@@ -36,5 +36,4 @@ public class RoleImpl implements Role {
 	public String getRole() {
 		return role;
 	}
-
 }
