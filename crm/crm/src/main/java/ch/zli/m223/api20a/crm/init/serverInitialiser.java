@@ -16,6 +16,7 @@ import ch.zli.m223.api20a.crm.repository.CustomerRepository;
 import ch.zli.m223.api20a.crm.repository.MemoRepository;
 import ch.zli.m223.api20a.crm.repository.RoleRepository;
 import ch.zli.m223.api20a.crm.repository.UserRepository;
+import ch.zli.m223.api20a.crm.role.Roles;
 
 @Component
 public class serverInitialiser implements ApplicationRunner{
@@ -32,12 +33,18 @@ public class serverInitialiser implements ApplicationRunner{
 	@Autowired
 	private MemoRepository memoRepository;
 	
-	int createThisManyUsers = 50;
+	int createThisManyUsers = 100;
 	
 	int createThisManyCustomers = 50;
 	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
+		
+		
+		addSomeUsers();
+		/*
+		
+		createAppUser("1@1.1", "geri", Roles.ADMIN);
 		
 		createAppUser(emailGenerator(4,3,2), passwordGenerator(5), roleGenerator());
 		createAppUser(emailGenerator(8,6,3), passwordGenerator(9), roleGenerator());
@@ -46,14 +53,35 @@ public class serverInitialiser implements ApplicationRunner{
 		Random rnd = new Random();
 		//TOAKS nextint without 0 ?
 		for(int i = 0; i < createThisManyUsers; i++) {
-			createAppUser(emailGenerator(rnd.nextInt(10), rnd.nextInt(8), rnd.nextInt(5)), passwordGenerator(rnd.nextInt(12)), roleGenerator());
+			createAppUser(emailGenerator(rnd.nextInt(10)+1, rnd.nextInt(8)+1, rnd.nextInt(5)+1), passwordGenerator(rnd.nextInt(12)), roleGenerator());
 		}
 		
 		for(int i = 0; i < createThisManyCustomers; i++) {
 			createCustomer(nameGenerator(), streetGenerator(), cityGenerator(), memoGenerator());
 		}
+		*/
 		
+	}
+	
+	public void addSomeUsers() {
+		AppUserImpl user;
+		List<String> roles = new ArrayList<>();
 		
+		roles.clear();
+		roles.add(Roles.USER);
+		user = userRepository.save(new AppUserImpl("user", "user"));
+		roleRepository.setRoles(user, roles);
+		
+		roles.clear();
+		roles.add(Roles.ADMIN);
+		user = userRepository.save(new AppUserImpl("admin", "admin"));
+		roleRepository.setRoles(user, roles);
+		
+		roles.clear();
+		roles.add(Roles.USER);
+		roles.add(Roles.ADMIN);
+		user = userRepository.save(new AppUserImpl("usemin", "usemin"));
+		roleRepository.setRoles(user, roles);
 	}
 	
 	public void createCustomer(String name, String street, String city, String memo) {

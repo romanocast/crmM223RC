@@ -1,0 +1,13 @@
+package ch.zli.m223.api20a.crm.controller.web;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/web/users")
+public class UserController {
+
+	public String getAllUsers() {
+		return "userList";
+	}
+}
