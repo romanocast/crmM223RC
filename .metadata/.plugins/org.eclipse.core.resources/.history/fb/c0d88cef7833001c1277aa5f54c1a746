@@ -1,121 +1,0 @@
-package ch.zli.m223.api20a.crm.init;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
-import org.springframework.stereotype.Component;
-
-import ch.zli.m223.api20a.crm.model.impl.AppUserImpl;
-import ch.zli.m223.api20a.crm.model.impl.CustomerImpl;
-import ch.zli.m223.api20a.crm.repository.CustomerRepository;
-import ch.zli.m223.api20a.crm.repository.MemoRepository;
-import ch.zli.m223.api20a.crm.repository.RoleRepository;
-import ch.zli.m223.api20a.crm.repository.UserRepository;
-
-@Component
-public class serverInitialiser implements ApplicationRunner{
-
-	@Autowired
-	private UserRepository userRepository;
-	
-	@Autowired
-	private RoleRepository roleRepository;
-	
-	@Autowired
-	private CustomerRepository customerRepository;
-
-	@Autowired
-	private MemoRepository memoRepository;
-	
-	int createThisManyUsers = 50;
-	
-	@Override
-	public void run(ApplicationArguments args) throws Exception {
-		
-		createAppUser(emailGenerator(4,3,2), "hans-jörg", "chef");
-		createAppUser("sagurkel@budugama.jupi", "banana-joe", "azubi");
-		
-		/*
-		for(int i = 0; i < 10; i++) {
-			createAppUser("email"+ i +"@mail.com", "rndName" + i, "loopRole" );
-		}
-		*/
-		
-		CustomerImpl customer = customerRepository.save(new CustomerImpl("Löffel-George", "HolzTanneWeg 2", "8743 Hinterfotzen"));
-		memoRepository.setMemos(customer, "Mega herte Siech");
-	}
-
-	public void createAppUser(String email, String password, String role) {
-		List<String> newRole = new ArrayList<>();
-		newRole.add(role);
-		AppUserImpl newUser = userRepository.save(new AppUserImpl(email, password));
-		roleRepository.setRoles(newUser, newRole);
-		newRole.clear();
-	}
-	
-	public String lastNameGenerator() {
-		Random random = new Random();
-		List<String> lastNameList = new ArrayList<>();
-		lastNameList.add("Müller");		lastNameList.add("Meier");		lastNameList.add("Schmid");		lastNameList.add("Keller");		lastNameList.add("Weber");		lastNameList.add("Huber");		lastNameList.add("Meyer");		lastNameList.add("Schneider");		lastNameList.add("Fischer");		lastNameList.add("Brunner");		lastNameList.add("Baumann");		lastNameList.add("Gerber");		lastNameList.add("Frei");		lastNameList.add("Moser");
-		return lastNameList.get(random.nextInt(lastNameList.size()));
-	}
-	
-	public String emailGenerator(int preAtLetters, int afterAtLetters, int afterDotLetters) {
-		
-		String email = stringGenerator(preAtLetters) + "@" + stringGenerator(afterAtLetters) + "." + stringGenerator(afterDotLetters);
-		
-		return email;
-	}
-	
-	public String stringGenerator(int length) {
-
-	    // create a string of all characters
-	    String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-
-	    // create random string builder
-	    StringBuilder sb = new StringBuilder();
-
-	    // create an object of Random class
-	    Random random = new Random();
-
-	    // specify length of random string
-	   
-	    for(int i = 0; i < length; i++) {
-
-	      // generate random index number
-	      int index = random.nextInt(alphabet.length());
-
-	      // get character specified by index
-	      // from the string
-	      char randomChar = alphabet.charAt(index);
-
-	      // append the character to string builder
-	      sb.append(randomChar);
-	    }
-
-	    String randomString = sb.toString();
-	   
-	    return randomString;
-	  }
-	
-	/*
-	 List<String> roles = new ArrayList<>();
-		roles.add("chef"); roles.add("büetzer");
-		AppUserImpl user = userRepository.save(new AppUserImpl("sankeTheRiddelFiddel@budugama.jupi", "hans-jörg"));
-		roleRepository.setRoles(user, roles);
-		
-		roles.clear();
-		
-		roles.add("azubi"); roles.add("lehrnender");
-		AppUserImpl user2 = userRepository.save(new AppUserImpl("sagurkel@budugama.jupi", "banana-joe"));
-		roleRepository.setRoles(user2, roles);
-	  
-	  
-	  
-	  */
-	 
-}
