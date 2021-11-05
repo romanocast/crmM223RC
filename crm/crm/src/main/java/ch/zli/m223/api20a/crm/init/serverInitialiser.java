@@ -40,27 +40,27 @@ public class serverInitialiser implements ApplicationRunner{
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		
+		Random rnd = new Random();
 		
 		addSomeUsers();
+		
 		/*
+		createAppUser("1@1.1", "geri", rnd.nextInt(2)+1);
 		
-		createAppUser("1@1.1", "geri", Roles.ADMIN);
-		
-		createAppUser(emailGenerator(4,3,2), passwordGenerator(5), roleGenerator());
-		createAppUser(emailGenerator(8,6,3), passwordGenerator(9), roleGenerator());
+		createAppUser(emailGenerator(4,3,2), passwordGenerator(5), rnd.nextInt(2)+1);
+		createAppUser(emailGenerator(8,6,3), passwordGenerator(9), rnd.nextInt(2)+1);
 		
 		
-		Random rnd = new Random();
+		
 		//TOAKS nextint without 0 ?
 		for(int i = 0; i < createThisManyUsers; i++) {
-			createAppUser(emailGenerator(rnd.nextInt(10)+1, rnd.nextInt(8)+1, rnd.nextInt(5)+1), passwordGenerator(rnd.nextInt(12)), roleGenerator());
+			createAppUser(emailGenerator(rnd.nextInt(10)+1, rnd.nextInt(8)+1, rnd.nextInt(5)+1), passwordGenerator(rnd.nextInt(12)+1), rnd.nextInt(2)+1);
 		}
 		
 		for(int i = 0; i < createThisManyCustomers; i++) {
 			createCustomer(nameGenerator(), streetGenerator(), cityGenerator(), memoGenerator());
 		}
 		*/
-		
 	}
 	
 	public void addSomeUsers() {
@@ -90,10 +90,18 @@ public class serverInitialiser implements ApplicationRunner{
 		memoRepository.setMemos(customer, memo);
 	}
 
-	public void createAppUser(String email, String password, String role) {
+	public void createAppUser(String email, String password, int role) {
 		
 		List<String> newRole = new ArrayList<>();
-		newRole.add(role);
+		switch(role){
+			case 1: newRole.add(Roles.USER);
+					break;
+			case 2: newRole.add(Roles.ADMIN);
+					break;
+			case 3: newRole.add(Roles.ADMIN);
+					newRole.add(Roles.USER);
+					break;
+		}
 		AppUserImpl newUser = userRepository.save(new AppUserImpl(email, password));
 		roleRepository.setRoles(newUser, newRole);
 		newRole.clear();

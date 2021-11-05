@@ -6,6 +6,9 @@ import java.util.List;
 import ch.zli.m223.api20a.crm.model.Customer;
 import ch.zli.m223.api20a.crm.model.Memo;
 
+/**
+ * This is an DTO to render the information we want to show of a customer
+ */
 public class CustomerDto {
 	public Long id;
 	public String name;

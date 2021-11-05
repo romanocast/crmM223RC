@@ -17,14 +17,18 @@ import ch.zli.m223.api20a.crm.controller.rest.dto.UserInputDto;
 import ch.zli.m223.api20a.crm.model.AppUser;
 import ch.zli.m223.api20a.crm.service.UserService;
 
+/**
+ * This is the rest-controller for users
+ */
 @RestController
 @RequestMapping("/api/v0/users")
 public class UserRestController {
 
+	//Spring itself searches an service, and injects it here
 	@Autowired
 	private UserService userService;
 	
-
+	//Get a list of all users
 	@GetMapping("")
 	public List<UserDto> getAllUsers() {
 
@@ -33,27 +37,29 @@ public class UserRestController {
 			.map((AppUser user) -> { return new UserDto(user);
 			}).collect(Collectors.toList());
 	}
-
+	
+	//get every information of one user (by id)
 	@GetMapping("/{id}")
 	public UserDto getUserById(@PathVariable("id") long id) {
 		
 		return new UserDto(userService.getUserById(id));
 	}
 
-	@DeleteMapping("/{id}")
+	//delete an user by his id
+	@DeleteMapping("/{id}/delete")
 	public void deleteById(@PathVariable("id") long id) {
 		
 		userService.deleteById(id);
 	}
 	
-	@PostMapping()
+	//add an new user with a post
+	@PostMapping("")
 	public UserDto addUser(@RequestBody UserInputDto user) {
 		
-		return new UserDto(
-				userService.addUser(user.email, user.password)
-				);
+		return new UserDto(userService.addUser(user.email, user.password));
 	}
 	
+	//add a new role to an user
 	@PostMapping("{id}/roles")
 	public UserDto setRoles(@PathVariable("id") long userId, @RequestBody List<String> roles) {
 		

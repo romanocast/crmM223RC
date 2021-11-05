@@ -25,6 +25,7 @@ public class CustomerRestController {
 	@Autowired
 	private CustomerService customerService;
 	
+	//Get a list of all customers
 	@GetMapping("")
 	public List<CustomerDto> getAllCustomers() {
 		
@@ -37,24 +38,28 @@ public class CustomerRestController {
 			}).collect(Collectors.toList());
 	}
 	
+	//get every information of one customer (by id)
 	@GetMapping("/{id}")
 	public CustomerDto getCustomerById(@PathVariable("id") long id) {
 		
 		return new CustomerDto(customerService.getCustomerById(id));
 	}
 	
+	//add an new customer with a post
 	@PostMapping("")
 	public CustomerDto addCustomer(@RequestBody CustomerInputDto customer) {
 		
 		return new CustomerDto(customerService.addCustomer(customer.name, customer.street, customer.city));
 	}
 
+	//delete an customer by his id
 	@DeleteMapping("/{id}")
 	public void deleteUserById(@PathVariable("id") long id) {
 		
 		customerService.deleteById(id);
 	}
 	
+	//add an new memo to an customer
 	@PostMapping("/{id}/memos")
 	public CustomerDto addMemo(@PathVariable("id") long id, @RequestBody MemoInputDto memos) {
 		
